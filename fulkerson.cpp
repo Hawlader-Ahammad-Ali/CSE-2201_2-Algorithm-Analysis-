@@ -1,6 +1,27 @@
 #include <iostream>
 #include<bits/stdc++.h>
 using namespace std;
+bool dfs(vector<vector<int>>& rGraph, int u, int sink,
+         vector<int>& parent, vector<bool>& visited, int n)
+{
+    visited[u] = true;
+
+    if (u == sink)
+        return true;
+
+    for (int v = 0; v < n; v++)
+    {
+        if (!visited[v] && rGraph[u][v] > 0)
+        {
+            parent[v] = u;
+
+            if (dfs(rGraph, v, sink, parent, visited, n))
+                return true;
+        }
+    }
+
+    return false;
+}
 bool bfs(vector<vector<int>> &rGraph, int src, int sink,vector<int> &parent , int n)
 {
      vector<bool>visited(n,false);
