@@ -1,6 +1,6 @@
 #include<bits/stdc++.h>
 using namespace std;
-int LCS (int n , int m , string st1 , string st2)
+void LCS (int n , int m , string st1 , string st2)
 {
     vector<vector<int>>dp(n+1,vector<int>(m+1,0));
     for(int i = 1; i <=n ; i++)
@@ -13,7 +13,42 @@ int LCS (int n , int m , string st1 , string st2)
                 dp[i][j] = max(dp[i-1][j] ,dp[i][j-1]);
         }
     }
-    return dp[n][m];
+    string ans = "";
+
+    int i = n, j = m;
+
+    while(i > 0 && j > 0)
+
+    {
+
+        if(st1[i-1] == st2[j-1])
+
+        {
+
+            ans += st1[i-1];
+
+            i--;
+
+            j--;
+
+        }
+
+        else if(dp[i-1][j] > dp[i][j-1])
+
+            i--;
+
+        else
+
+            j--;
+
+    }
+
+    reverse(ans.begin(), ans.end());
+
+    cout << "LCS Length: " << dp[n][m] << endl;
+
+    cout << "LCS String: " << ans << endl;
+
 }
 int main()
 {
@@ -21,8 +56,7 @@ int main()
     cin >> st1 >> st2;
     int n = st1.size();
     int m = st2.size();
-    int ans = LCS(n,m,st1,st2);
-    cout << ans << endl;
+    LCS(n,m,st1,st2);
 }
 /*
 8
